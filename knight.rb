@@ -21,6 +21,8 @@ class Knight
       # use two direction arrays for bfs, row and column
       # All next legal moves include row + or - 2 and column + or - 1 as well as
       # row + or - 1 and column + or - 2
+      column_movement = [2, 2, -2, 2, 1, 1, -1, -1]
+      row_movement = [1, -1, 1, -1, 2, -2, 2, -2]
       # Remove moves that aren't on the board like -1 or 8
   # Use BFS to search for shortest path between starting square and ending square
     # Initialize discovered_nodes_and distance array, which keeps track of the discovered nodes/squares and number of moves from startin square
