@@ -7,8 +7,11 @@ class Knight
     @board = board
   end
 
-  def knight_moves(starting_square)
-    board.add_piece(starting_square, piece_symbol)
+  def knight_moves(starting_square, ending_square)
+    @board.add_piece(starting_square, piece_symbol)
+    @board.render
+    @board.add_piece(ending_square, piece_symbol)
+    @board.render
   end
 
   # Treat all possible moves the knight could make as children in a tree
