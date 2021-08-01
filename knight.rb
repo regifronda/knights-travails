@@ -1,12 +1,9 @@
 class Knight
-  attr_accessor :piece_symbol, :board, :column, :row, :distance, :jump_movements
+  attr_accessor :piece_symbol, :board, :movements
 
   def initialize(piece_symbol, board)
     @piece_symbol = piece_symbol
     @board = board
-    @column = column
-    @row = row
-    @distance = distance
     @movements = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
   end
   
