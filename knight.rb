@@ -19,15 +19,26 @@ class Knight
   end
 
   def knight_moves(starting_square, ending_square)
-    @board.add_piece(starting_square, piece_symbol)
+    @board.add_piece(starting_square, @piece_symbol)
     @board.render
-    @board.add_piece(ending_square, piece_symbol)
+    @board.add_piece(ending_square, @piece_symbol)
     @board.render
   end
-      
+  
   # Remove moves that aren't on the board like -1 or 8
-  def legal_move?(cell)
-    cell.all? { |movement| movement >= 0 && n <= 7}
+  def legal_move?(node)
+    node.all? { |movement| movement >= 0 && n <= 7}
+  end
+
+  def build_path(starting_square, ending_square, discovered_nodes)
+    path = [starting_square]
+    while next_node = discovered_nodes[path.last]
+      path << next_node
+    end
+    path.last == ending_square ? path : nil
+  end
+
+  def possible_moves(node)
   end
   # Use BFS to search for shortest path between starting square and ending square
     # Initialize discovered_nodes_and distance array, which keeps track of the discovered nodes/squares and number of moves from startin square
