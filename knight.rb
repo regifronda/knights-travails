@@ -33,6 +33,10 @@ class Knight
     end
     p "path.last: #{path.last} compared with ending_square: #{ending_square}"
     path.last == ending_square ? path : nil
+    path.each do |square|
+      @board.add_piece(square, @piece_symbol)
+      @board.render
+    end
   end
 
   def possible_moves(node)
