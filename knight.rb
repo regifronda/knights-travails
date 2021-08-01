@@ -15,7 +15,7 @@ class Knight
       # use two direction arrays for bfs, row and column
       # All next legal moves include row + or - 2 and column + or - 1 as well as
       # row + or - 1 and column + or - 2
-    @jump_movements = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
+    @movements = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
   end
 
   def knight_moves(starting_square, ending_square)
@@ -26,13 +26,8 @@ class Knight
   end
       
   # Remove moves that aren't on the board like -1 or 8
-  def legal_move?(column_movement, row_movement)
-    if (column_movement >= 0 && column_movement <= 7) &&
-      (row_movement >= 0 && row_movement <= 7)
-      return true
-    else 
-      return false
-    end
+  def legal_move?(cell)
+    cell.all? { |movement| movement >= 0 && n <= 7}
   end
   # Use BFS to search for shortest path between starting square and ending square
     # Initialize discovered_nodes_and distance array, which keeps track of the discovered nodes/squares and number of moves from startin square
