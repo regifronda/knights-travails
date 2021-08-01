@@ -20,39 +20,57 @@ class Knight
   
   # Remove moves that aren't on the board like -1 or 8
   def legal_move?(node)
-    node.all? { |movement| movement >= 0 && n <= 7}
+    node.all? { |movement| movement >= 0 && movement <= 7}
   end
 
   def build_path(starting_square, ending_square, discovered_nodes)
     path = [starting_square]
+    p "entered build_path. path: #{path}"
     while next_node = discovered_nodes[path.last]
+      p "discovered_nodes: #{discovered_nodes}"
+      p "next_node: #{next_node}"
       path << next_node
     end
+    p "path.last: #{path.last} compared with ending_square: #{ending_square}"
     path.last == ending_square ? path : nil
   end
 
   def possible_moves(node)
+    p "entered possible moves"
     @movements.map { |column, row| [node.first + column, node.last + row] }.
     select(&method(:legal_move?))
   end
-  
+
   # Use BFS to search for shortest path between starting square and ending square
   def knight_moves(starting_square, ending_square)
-    @board.add_piece(starting_square, @piece_symbol)
-    @board.render
-    @board.add_piece(ending_square, @piece_symbol)
-    @board.render
-    # Initialize discovered_nodes_and distance array, which keeps track of the discovered nodes/squares and number of moves from startin square
+    p "starting_square: #{starting_square}"
+    #@board.add_piece(starting_square, @piece_symbol)
+    #@board.render
+    #@board.add_piece(ending_square, @piece_symbol)
+    #@board.render
+    # Initialize discovered_nodes and distance array, which keeps track of the discovered nodes/squares and number of moves from startin square
     discovered_nodes = {}
     # Initialize array that serves as queue 
     queue = [[ending_square, nil]]
     # Insert starting_square/node
     # loop while the queue is not empty
-      # Take the front node from the queue into variable current
-      # Get all possible squares and nodes from current and add into the queue and discovered arrays
-      # Don't mark already visited squares or moves that go off the board as discovered nodes 
-        #because that will prevent the queue from ever being empty
-      # As soon as you discover the ending square, you find the minimum number of moves
-        # Return after discovering ending square
+    while queue.any?
+      # Search from ending_square to starting_square to find the shortest path
+      p "queue: #{queue}"
+      current_node, next_node = queue.shift
+      next if discovered_nodes.has_key?(current_node)
+      
+      discovered_nodes[current_node] = next_node
+      p "current node after next if statement: #{current_node}"
+      p "next node after next if statement: #{next_node}"
+      p "discovered_nodes after next if statement: #{discovered_nodes}"
+      
+      return build_path(starting_square, ending_square, discovered_nodes) if current_node == starting_square
+      
+      possible_moves(current_node).each do |next_move|
+        p "entered each enumerable"
+        queue << [next_move, current_node] unless discovered_nodes.has_key?(next_move)
+      end
+    end
   end
 end
