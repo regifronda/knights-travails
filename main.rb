@@ -11,10 +11,10 @@ class KnightsTravails
     @knight = Knight.new("♞", board)
   end
   
-  def test_placement
-    @knight.knight_moves([0, 1], [2, 0])
+  def find_shortest_path(starting_square, ending_square)
+    @knight.knight_moves(starting_square, ending_square)
   end
 end
 
 knights_travails = KnightsTravails.new
-knights_travails.test_placement
+knights_travails.find_shortest_path([3, 3], [0, 0])
