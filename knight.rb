@@ -17,13 +17,6 @@ class Knight
       # row + or - 1 and column + or - 2
     @movements = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]]
   end
-
-  def knight_moves(starting_square, ending_square)
-    @board.add_piece(starting_square, @piece_symbol)
-    @board.render
-    @board.add_piece(ending_square, @piece_symbol)
-    @board.render
-  end
   
   # Remove moves that aren't on the board like -1 or 8
   def legal_move?(node)
@@ -39,10 +32,20 @@ class Knight
   end
 
   def possible_moves(node)
+    @movements.map { |column, row| [node.first + column, node.last + row] }.
+    select(&method(:legal_move?))
   end
+  
   # Use BFS to search for shortest path between starting square and ending square
+  def knight_moves(starting_square, ending_square)
+    @board.add_piece(starting_square, @piece_symbol)
+    @board.render
+    @board.add_piece(ending_square, @piece_symbol)
+    @board.render
     # Initialize discovered_nodes_and distance array, which keeps track of the discovered nodes/squares and number of moves from startin square
+    discovered_nodes = {}
     # Initialize array that serves as queue 
+    queue = [[ending_square, nil]]
     # Insert starting_square/node
     # loop while the queue is not empty
       # Take the front node from the queue into variable current
@@ -51,4 +54,5 @@ class Knight
         #because that will prevent the queue from ever being empty
       # As soon as you discover the ending square, you find the minimum number of moves
         # Return after discovering ending square
+  end
 end
