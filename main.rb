@@ -12,7 +12,7 @@ class KnightsTravails
   end
   
   def find_shortest_path(starting_square, ending_square)
-    @knight.knight_moves(starting_square, ending_square)
+    p @knight.knight_moves(starting_square, ending_square)
   end
 end
 
