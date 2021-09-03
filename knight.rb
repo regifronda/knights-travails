@@ -26,7 +26,6 @@ class Knight
   end
 
   def possible_moves(node)
-    p "entered possible moves"
     @movements.map { |column, row| [node.first + column, node.last + row] }.
     select(&method(:legal_move?))
   end
